@@ -7,7 +7,7 @@ export default async function Home() {
     console.error("Error fetching members:", error);
     return <div>Error loading members</div>;
   }
-  console.log(data);
+  //console.log(data);
   return (
     <>
     <div className="flex min-h-screen flex-col items-center justify-center bg-background">
