@@ -40,6 +40,26 @@ export default function AboutPage() {
           </li>
         ))}
       </ul>
+      <br />
+      <h2 className="mt-12 text-2xl font-semibold tracking-tight">Project Report</h2>
+      <p className="mt-2 text-muted-foreground">Stage 1 Report.</p>
+      <div className="h-screen w-full flex justify-center items-center">
+        <iframe
+          src="/G_11_stage1.pdf"
+          width="80%"
+          height="90%"
+          style={{ border: "none" }}
+        />
+      </div>
+      <p className="mt-2 text-muted-foreground">Stage 2 Report.</p>
+      <div className="h-screen w-full flex justify-center items-center">
+        <iframe
+          src="/G_11_stage2.pdf"
+          width="80%"
+          height="90%"
+          style={{ border: "none" }}
+        />
+      </div>
     </main>
   );
 }

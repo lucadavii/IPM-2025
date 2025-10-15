@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const { data,error } = await supabase.from('Test').select('*');
@@ -10,6 +11,8 @@ export default async function Home() {
   //console.log(data);
   return (
     <>
+    {/* redirect to /about */}
+    {redirect("/about")}
     <div className="flex min-h-screen flex-col items-center justify-center bg-background">
       <Button>Click me</Button>
     </div>
