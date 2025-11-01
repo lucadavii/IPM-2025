@@ -1,7 +1,12 @@
 
 import Image from "next/image";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
-// Edit this list with your group members
 const members = [
   { name: "Marta Negri", photo: "/developer.png", number: "75169" },
   { name: "Diana Tleuberlin", photo: "/developer.png", number: "75261" },
@@ -42,24 +47,90 @@ export default function AboutPage() {
       </ul>
       <br />
       <h2 className="mt-12 text-2xl font-semibold tracking-tight">Project Report</h2>
-      <p className="mt-2 text-muted-foreground">Stage 1 Report.</p>
-      <div className="h-screen w-full flex justify-center items-center">
-        <iframe
-          src="/G_11_stage1.pdf"
-          width="80%"
-          height="90%"
-          style={{ border: "none" }}
-        />
-      </div>
-      <p className="mt-2 text-muted-foreground">Stage 2 Report.</p>
-      <div className="h-screen w-full flex justify-center items-center">
-        <iframe
-          src="/G_11_stage2.pdf"
-          width="80%"
-          height="90%"
-          style={{ border: "none" }}
-        />
-      </div>
+      <Accordion type="single" collapsible className="w-full mt-8">
+        <AccordionItem value="stage-1">
+          <AccordionTrigger>1st Stage Report</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/G_11_stage1.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="stage-2">
+          <AccordionTrigger>2nd Stage Report</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/G_11_stage2.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+      <br />
+      <h2 className="mt-12 text-2xl font-semibold tracking-tight">Individual Assignments</h2>
+      <Accordion type="single" collapsible className="w-full mt-8">
+        <AccordionItem value="assignment-luca">
+          <AccordionTrigger>Luca Davì</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/ass_Luca.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="assignment-marta">
+          <AccordionTrigger>Marta Negri</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/ass_Marta.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="assignment-nina">
+          <AccordionTrigger>Nina Lutz</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/ass_Nina.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="assignment-diana">
+          <AccordionTrigger>Diana Tleuberlin</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/ass_Diana.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </main>
   );
 }
