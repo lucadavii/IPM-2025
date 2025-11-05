@@ -74,6 +74,19 @@ export default function AboutPage() {
             </div>
           </AccordionContent>
         </AccordionItem>
+        <AccordionItem value="stage-3">
+          <AccordionTrigger>3rd Stage Report</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/G_11_stage3.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
       </Accordion>
       <br />
       <h2 className="mt-12 text-2xl font-semibold tracking-tight">Individual Assignments</h2>
