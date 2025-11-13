@@ -55,13 +55,13 @@ export function NavMenu() {
                         <ul className="grid w-[200px] gap-2">
                             <li>
                                 <NavigationMenuLink asChild>
-                                    <Link href="/myevents" className="flex-row items-center gap-2 rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
+                                    <Link href="/events/myevents" className="flex-row items-center gap-2 rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
                                         My Events
                                         <HeartIcon className="inline-block ml-1 mb-1 w-4 h-4 text-red-500 fill-red-500" />
                                     </Link>
                                 </NavigationMenuLink>
                                 <NavigationMenuLink asChild>
-                                    <Link href="/events" className="block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
+                                    <Link href="/events/browse" className="block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
                                         Browse Events
                                     </Link>
                                 </NavigationMenuLink>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
-import { TipsSidebar } from "@/components/ui/tipsidebar";
+import { EventsSidebar } from "@/components/ui/eventssidebar";
 
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function TipsLayout({
 }>) {
   return (
     <SidebarProvider>
-        <TipsSidebar />
+        <EventsSidebar />
         <main className="w-full">
             <SidebarTrigger />
             {children}
