@@ -9,6 +9,7 @@ import {
     NavigationMenuViewport
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
+import { HeartIcon } from "lucide-react";
 
 export function NavMenu() {
     return (
@@ -31,15 +32,16 @@ export function NavMenu() {
                 <NavigationMenuItem >
                     <NavigationMenuTrigger> Activities </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <ul className="grid w-[320px] gap-2">
+                        <ul className="grid w-[200px] gap-2">
                             <li>
                                 <NavigationMenuLink asChild>
-                                    <Link href="/about" className="block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
+                                    <Link href="/myactivities" className="flex-row items-center block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
                                         My Activities
+                                        <HeartIcon className="inline-block ml-1 mb-1 w-4 h-4 text-red-500 fill-red-500" />
                                     </Link>
                                 </NavigationMenuLink>
                                 <NavigationMenuLink asChild>
-                                    <Link href="/about" className="block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
+                                    <Link href="/activities" className="block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
                                         Browse Activities
                                     </Link>
                                 </NavigationMenuLink>
@@ -48,16 +50,29 @@ export function NavMenu() {
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Link href="/about" className="px-3 py-2">
-                            Events
-                        </Link>
-                    </NavigationMenuLink>
+                    <NavigationMenuTrigger> Events </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <ul className="grid w-[200px] gap-2">
+                            <li>
+                                <NavigationMenuLink asChild>
+                                    <Link href="/myevents" className="flex-row items-center gap-2 rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
+                                        My Events
+                                        <HeartIcon className="inline-block ml-1 mb-1 w-4 h-4 text-red-500 fill-red-500" />
+                                    </Link>
+                                </NavigationMenuLink>
+                                <NavigationMenuLink asChild>
+                                    <Link href="/events" className="block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
+                                        Browse Events
+                                    </Link>
+                                </NavigationMenuLink>
+                            </li>
+                        </ul>
+                    </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                        <Link href="/about" className="px-3 py-2">
-                            Child Mode
+                        <Link href="/childmode" className="px-3 py-2">
+                            <p className=" text-purple-500">Child Mode</p>
                         </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
