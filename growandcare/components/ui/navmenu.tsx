@@ -35,13 +35,13 @@ export function NavMenu() {
                         <ul className="grid w-[200px] gap-2">
                             <li>
                                 <NavigationMenuLink asChild>
-                                    <Link href="/myactivities" className="flex-row items-center block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
+                                    <Link href="/activities/myactivities" className="flex-row items-center block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
                                         My Activities
                                         <HeartIcon className="inline-block ml-1 mb-1 w-4 h-4 text-red-500 fill-red-500" />
                                     </Link>
                                 </NavigationMenuLink>
                                 <NavigationMenuLink asChild>
-                                    <Link href="/activities" className="block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
+                                    <Link href="/activities/browse" className="block rounded-md px-3 py-2 hover:bg-accent hover:text-accent-foreground">
                                         Browse Activities
                                     </Link>
                                 </NavigationMenuLink>
