@@ -13,7 +13,7 @@ import { HeartIcon } from "lucide-react";
 
 export function NavMenu() {
     return (
-        <NavigationMenu viewport={false}>
+        <NavigationMenu viewport={false} className="z-50">
             <NavigationMenuList>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
