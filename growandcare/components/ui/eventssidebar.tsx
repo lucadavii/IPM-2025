@@ -36,24 +36,7 @@ const categories = [
         url: "#"
     }
 ];
-const goals = [
-    {
-        title:"Social Skills",
-        url:"#"
-    },
-    {
-        title: "Motor Skills",
-        url: "#"
-    },
-    {
-        title: "Cognitive Development",
-        url: "#"
-    },
-    {
-        title: "Emotional Well-being",
-        url: "#"
-    }
-];
+
 export function EventsSidebar() {
     return (
         <Sidebar>
@@ -87,23 +70,6 @@ export function EventsSidebar() {
                                     <span>0</span>
                                     <span>13</span>
                                 </div>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-                <SidebarGroup>
-                    <SidebarGroupLabel>Goals</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                                <RadioGroup>
-                                    {goals.map((goal) => (
-                                        <div key={goal.title} className="flex items-center space-x-2">
-                                            <RadioGroupItem value={goal.title} id={goal.title} />
-                                            <Label htmlFor={goal.title} className="text-sm">{goal.title}</Label>
-                                        </div>
-                                    ))}
-                                </RadioGroup>
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
