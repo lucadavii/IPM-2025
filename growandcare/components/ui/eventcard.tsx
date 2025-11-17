@@ -27,6 +27,10 @@ type AppCardProps = {
         tags: string[];
         booked: boolean;
         saved: boolean;
+        date: string;
+        age_min: number;
+        age_max: number;
+        location: string;
     };
 };
 
@@ -34,7 +38,15 @@ export function EventCard({ event }: AppCardProps) {
     return (
         <Card className="w-full mt-2 mb-2" key={event.title}>
                         <div className="flex flex-row items-start">
-                            <Image src={event.img} alt={event.title} width={100} height={100} className=" mt-0 ml-6 m-3 rounded-md object-scale-down border-2 border-accent-foreground"/>
+                            <div className="flex flex-col">
+                                <Image src={event.img} alt={event.title} width={100} height={100} className=" mt-0 ml-6 m-3 rounded-md object-scale-down border-2 border-accent-foreground"/>
+                                <p className="ml-6 font-semibold text-sm">Event Date:</p>
+                                <p className="ml-6 mb-2 text-sm">{event.date}</p>
+                                <p className="ml-6 font-semibold text-sm">Age Range:</p>
+                                <p className="ml-6 mb-2 text-sm">{event.age_min} - {event.age_max}</p>
+                                <p className="ml-6 font-semibold text-sm">Location:</p>
+                                <p className="ml-6 mb-2 text-sm">{event.location}</p>
+                            </div>
                             <div className="w-5/6 ">
                                 <CardTitle className="ml-3 text-left text-xl ">{event.title}</CardTitle>
                                 <CardDescription className="m-3 pr-3 text-justify">
@@ -64,11 +76,19 @@ export function EventCard({ event }: AppCardProps) {
                                         <div className="flex flex-row items-start gap-4 flex-1 min-h-0">
                                             <div className="flex flex-col items-start max-w-[250px]">
                                                 <Image src={event.img} alt={event.title} width={200} height={200} className=" mb-4 mt-0 ml-6 m-3 rounded-md object-scale-down border-2 border-accent-foreground"/>
-                                                <div className="flex flex-row flex-wrap m-3 ml-0">
-                                                    {event.tags.map((tag) => (
-                                                        <Badge key={tag} variant={"secondary"} className="ml-6 mb-2">{tag}</Badge>
-                                                    ))}
+                                                <div className="ml-6 mb-2">
+                                                    <p className="font-semibold">Event Date: {event.date}</p>
+                                                    <p className="font-semibold">Age Range: {event.age_min} - {event.age_max}</p>
+                                                    <p className="font-semibold">Location: {event.location}</p>
                                                 </div>
+                                                <ScrollArea>
+                                                    <div className="max-h-[30vh] flex flex-row flex-wrap m-3 ml-0">
+                                                        {event.tags.map((tag) => (
+                                                            <Badge key={tag} variant={"secondary"} className="ml-6 mb-2">{tag}</Badge>
+                                                        ))}
+                                                    </div>
+                                                    <ScrollBar orientation="vertical" />
+                                                </ScrollArea>
                                             </div>
                                             <div className="flex flex-col flex-1 min-h-0">
                                                 <DialogHeader>

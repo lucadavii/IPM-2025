@@ -13,7 +13,11 @@ const events =[{
     link:"#",
     tags:["parenting","workshop","family","kids","education","health" ,"wellness","support","community","skills","development", "tips","advice","resources","activities","events","seminar","training","outdoor","fun","long description","test"],
     booked: true,
-    saved: true
+    saved: true,
+    date: "2024-07-15: 15:00",
+    age_min: 0,
+    age_max: 99,
+    location: "Central Park"
 },
 {
     title:"Nutrition Seminar",
@@ -23,7 +27,11 @@ const events =[{
     link:"#",
     tags:["nutrition","seminar"],
     booked: true,
-    saved: true
+    saved: true,
+    date: "2024-07-16: 15:00",
+    age_min: 0,
+    age_max: 99,
+    location: "Central Park"
 },
 {
     title:"First Aid Training",
@@ -33,25 +41,39 @@ const events =[{
     link:"#",
     tags:["first aid","training"],
     booked: false,
-    saved: false
+    saved: false,
+    date: "2024-07-17: 15:00",
+    age_min: 0,
+    age_max: 99,
+    location: "Central Park"
 },
-{    title:"Outdoor Family Fun Day",
+{
+    title:"Outdoor Family Fun Day",
     description:"Enjoy a day of outdoor activities and games for the entire family.",
     text:lorem,
     img:"/developer.png",
     link:"#",
     tags:["outdoor","family","fun"],
     booked: false,
-    saved: false
+    saved: false,
+    date: "2024-07-18: 15:00",
+    age_min: 0,
+    age_max: 99,
+    location: "Central Park"
 },
-{    title:"Event with a very long description",
+{
+    title:"Event with a very long description",
     description:lorem,
     text:lorem,
     img:"/developer.png",
     link:"#",
     tags:["long description","test"],
     booked: false,
-    saved: false
+    saved: false,
+    date: "2024-07-19: 15:00",
+    age_min: 0,
+    age_max: 99,
+    location: "Central Park"
 }
 ];
 
