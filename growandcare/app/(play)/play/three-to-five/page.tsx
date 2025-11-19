@@ -7,7 +7,7 @@ export default function ThreeToFivePage() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-start bg-background px-6 py-24">
             <h1 className="scroll-m-20 text-center text-3xl lg:text-5xl font-extrabold tracking-tight text-balance">
-                Let's Play Together! Choose an Activity
+                Let&apos;s Play Together! Choose an Activity
             </h1>
             <h2 className="mt-6 text-center text-lg max-w-2xl text-muted-foreground">
                 Age 3-5 Activities
