@@ -9,7 +9,7 @@ import {
     NavigationMenuViewport
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
-import { HeartIcon } from "lucide-react";
+import { HeartIcon, CircleUserRoundIcon } from "lucide-react";
 
 export function NavMenu() {
     return (
@@ -85,8 +85,8 @@ export function NavMenu() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                        <Link href="/profile" className="px-3 py-2">
-                            <Image src="/developer.png" alt="Developers" width={24} height={24} />
+                        <Link href="/profile" >
+                            <CircleUserRoundIcon className="w-7 h-7 text-accent-foreground" />
                         </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>

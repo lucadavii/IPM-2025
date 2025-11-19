@@ -3,9 +3,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { HeartIcon } from "lucide-react";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle, 
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { HeartIcon, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 
     // title:"Parenting Workshop",
@@ -40,12 +52,12 @@ export function EventCard({ event }: AppCardProps) {
                         <div className="flex flex-row items-start">
                             <div className="flex flex-col">
                                 <Image src={event.img} alt={event.title} width={100} height={100} className=" mt-0 ml-6 m-3 rounded-md object-scale-down border-2 border-accent-foreground"/>
-                                <p className="ml-6 font-semibold text-sm">Event Date:</p>
-                                <p className="ml-6 mb-2 text-sm">{event.date}</p>
-                                <p className="ml-6 font-semibold text-sm">Age Range:</p>
-                                <p className="ml-6 mb-2 text-sm">{event.age_min} - {event.age_max}</p>
-                                <p className="ml-6 font-semibold text-sm">Location:</p>
-                                <p className="ml-6 mb-2 text-sm">{event.location}</p>
+                                <Label className="ml-6 font-semibold text-sm">Event Date:</Label>
+                                <Badge className="ml-6 mb-2 text-sm" variant={'secondary'}>{event.date}</Badge>
+                                <Label className="ml-6 font-semibold text-sm">Age Range:</Label>
+                                <Badge className="ml-6 mb-2 text-sm" variant={'secondary'}>{event.age_min} - {event.age_max}</Badge>
+                                <Label className="ml-6 font-semibold text-sm">Location:</Label>
+                                <Badge className="ml-6 mb-2 text-sm" variant={'secondary'}>{event.location}</Badge>
                             </div>
                             <div className="w-5/6 ">
                                 <CardTitle className="ml-3 text-left text-xl ">{event.title}</CardTitle>
@@ -77,9 +89,9 @@ export function EventCard({ event }: AppCardProps) {
                                             <div className="flex flex-col items-start max-w-[250px]">
                                                 <Image src={event.img} alt={event.title} width={200} height={200} className=" mb-4 mt-0 ml-6 m-3 rounded-md object-scale-down border-2 border-accent-foreground"/>
                                                 <div className="ml-6 mb-2">
-                                                    <p className="font-semibold">Event Date: {event.date}</p>
-                                                    <p className="font-semibold">Age Range: {event.age_min} - {event.age_max}</p>
-                                                    <p className="font-semibold">Location: {event.location}</p>
+                                                    <Label className="font-semibold">Event Date: <Badge variant={'secondary'}>{event.date}</Badge></Label>
+                                                    <Label className="font-semibold">Age Range: <Badge variant={'secondary'}>{event.age_min} - {event.age_max}</Badge></Label>
+                                                    <Label className="font-semibold">Location: <Badge variant={'secondary'}>{event.location}</Badge></Label>
                                                 </div>
                                                 <ScrollArea>
                                                     <div className="max-h-[30vh] flex flex-row flex-wrap m-3 ml-0">
@@ -112,11 +124,35 @@ export function EventCard({ event }: AppCardProps) {
                                             </div>
                                         </div>
                                         <DialogFooter className="mt-4">
-                                            {event.booked ? (
-                                                <Button variant="secondary" disabled>Already Booked</Button>
-                                            ) : (
-                                                <Button variant="secondary">Book</Button>
-                                            )}
+                                            <Sheet>
+                                                <SheetTrigger>
+                                                    {event.booked? (<Button variant="secondary">View Booking</Button>) : (<Button>Book Event</Button>)}
+                                                </SheetTrigger>
+                                                <SheetContent>
+                                                    <SheetHeader>
+                                                        {event.booked? (<SheetTitle>Your Booking</SheetTitle>):(<SheetTitle>Book this event</SheetTitle>)}
+                                                        <SheetDescription>
+                                                            {event.booked? ("Review your booking details below.") : ("Please insert the required information")}
+                                                        </SheetDescription>
+                                                    </SheetHeader>
+                                                    <div className="flex flex-col gap-4 m-3 items-center">
+                                                        <Label className="text-center"> Number of children </Label>
+                                                        <div className="flex gap-4">
+                                                            <Button variant='outline' disabled={event.booked}> <Minus /></Button>
+                                                            <Label> 0 </Label>
+                                                            <Button variant='outline' disabled={event.booked}><Plus /></Button>
+                                                        </div>
+                                                        <Label className="text-center text-wrap"> Additional Notes </Label>
+                                                        <Textarea placeholder="E.g., allergies, special needs, etc." className="w-full" disabled={event.booked}/>
+                                                    </div>
+                                                    <SheetFooter>
+                                                        {event.booked? (<Button variant="destructive">Delete Booking</Button>) : (<Button variant="secondary">Book Event</Button>)}
+                                                        <SheetClose asChild>
+                                                            <Button>Close</Button>
+                                                        </SheetClose>
+                                                    </SheetFooter>
+                                                </SheetContent>
+                                            </Sheet>
                                         </DialogFooter>                                    
                                     </DialogContent>
                                 </Dialog>

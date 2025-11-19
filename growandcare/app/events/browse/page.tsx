@@ -82,6 +82,7 @@ export default function EventsPage() {
             <div className="mt-2 w-full flex flex-col"> 
                 {events.map((event) => (
                     <EventCard event={event} key={event.title} />
+                    /*Modify event booking: should specify how many children etc etc*/
                 ))}
             </div>
         </main>
