@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
     NavigationMenu,
@@ -71,8 +73,8 @@ export function NavMenu() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                        <Link href="/childmode" className="px-3 py-2">
-                            <p className=" text-purple-500">Child Mode</p>
+                        <Link href="/play" className="px-3 py-2 bg-purple-100 rounded-md">
+                            <p className=" text-purple-500 ">Play</p>
                         </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
