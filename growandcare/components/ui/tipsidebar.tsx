@@ -10,22 +10,9 @@ import {
     SidebarMenuItem,
     SidebarMenuButton,
 } from "@/components/ui/sidebar";
+import { TipCategory } from "@/types/tips";
 
-const tips = [
-    {
-        title: "Sleep",
-        url: "#"
-    },
-    {
-        title: "Games",
-        url: "#"
-    },
-    {
-        title: "Choking Hazards",
-        url: "#"
-    },
-];
-export function TipsSidebar() {
+export function TipsSidebar({ categories }: { categories: TipCategory[] }) {
     return (
         <Sidebar>
             <SidebarHeader/>
@@ -34,15 +21,22 @@ export function TipsSidebar() {
                     <SidebarGroupLabel>For Children</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {tips.map((tip) => (
-                                <SidebarMenuItem key={tip.title}>
+                            
+                            {categories && categories.length > 0 ? categories.map((category) => (
+                                <SidebarMenuItem key={category.id}>
                                     <SidebarMenuButton asChild>
-                                        <a href={tip.url} className="w-full text-left">
-                                            <span>{tip.title}</span>
+                                        <a href={`/tips?category=${category.id}`} className="w-full text-left">
+                                            <span>{category.name}</span>
                                         </a>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
-                            ))}
+                            )) : 
+                            <SidebarMenuItem>
+                                <SidebarMenuButton asChild>
+                                    <span className="w-full text-left">No Categories Available</span>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            }
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>

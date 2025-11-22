@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabase";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 
