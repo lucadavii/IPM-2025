@@ -12,7 +12,29 @@ import { createSupabaseServerClient } from './supabase-server'
 //     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 // )
 
+type ActivityCategoryJoin = {
+    c_id: ActivityCategory['id'];
+    categories?: {
+        id: ActivityCategory['id'];
+        name: ActivityCategory['name'];
+    }[] | null;
+}
 
+type ActivityGoalJoin = {
+    g_id: Goal['id'];
+    goals?: {
+        id: Goal['id'];
+        name: Goal['name'];
+    }[] | null;
+}
+type ActivityRowWithJoins = Activity & {
+    activity_categories?: ActivityCategoryJoin[] | null;
+    activity_goals?: ActivityGoalJoin[] | null;
+};
+
+type SavedActivityRow = {
+    a_id: Activity['id'];
+};
 export const fetchTipCategories = async (): Promise<TipCategory[]> => {
     const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
@@ -87,7 +109,11 @@ export const fetchActivityCategories = async (): Promise<ActivityCategory[]> => 
     return data || []
 }
 
-export const fetchActivitiesFilter = async (goalId: string|undefined,categoryId: string|undefined, ageMin: number|undefined, ageMax: number|undefined): Promise<Activity[]> => {
+export const fetchActivitiesFilter = async (
+    goalId: string|undefined,
+    categoryId: string|undefined, 
+    ageMin: number|undefined, 
+    ageMax: number|undefined): Promise<Activity[]> => {
     const supabase = await createSupabaseServerClient();
     let query = supabase
     .from("activities")
@@ -96,16 +122,16 @@ export const fetchActivitiesFilter = async (goalId: string|undefined,categoryId:
     ).order('title', { ascending: true });
 
     if (ageMin) {
-        query.gte("age_min", ageMin)
+        query = query.gte("age_min", ageMin)
         }
     if(ageMax){
-        query.lte("age_max", ageMax)
+        query = query.lte("age_max", ageMax)
     }
     if (categoryId){
-        query.eq("activity_categories.c_id", categoryId)
+        query = query.eq("activity_categories.c_id", categoryId)
     }
     if (goalId) {
-        query.eq("activity_goals.g_id", goalId)
+        query = query.eq("activity_goals.g_id", goalId)
     }
     const { data, error } = await query;
     if (error) {
@@ -113,7 +139,7 @@ export const fetchActivitiesFilter = async (goalId: string|undefined,categoryId:
         return []
     }
 
-    return data || []
+    return (data ?? []) as Activity[];
 }
 
 
@@ -180,7 +206,8 @@ export const fetchActivitiesWithTagsAndSaved = async (
         console.error("Error fetching activities with tags and saved status:", error);
         return [];
     }
-    let savedIds = new Set<string>();
+    let savedIds = new Set<Activity['id']>();
+
     if (userId) {
         const { data: savedData, error: savedError } = await supabase
             .from("saved_activities")
@@ -189,21 +216,27 @@ export const fetchActivitiesWithTagsAndSaved = async (
 
         if (savedError) {
             console.error("Error fetching saved activities:", savedError);
-        } else {
-            savedIds = new Set((savedData?? []).map((item) => item.a_id as string));
+        } else if(savedData) {
+            const typedSaved = savedData as SavedActivityRow[];
+            savedIds = new Set(typedSaved.map((item) => item.a_id));
         }
     }
-    const activitiesWithTagsAndSaved: ActivityWithTagsAndSaved[] = (data ?? []).map(
-        (activity: any) => {
+
+    const rows = (data ?? []) as ActivityRowWithJoins[];
+
+    const activitiesWithTagsAndSaved: ActivityWithTagsAndSaved[] = rows.map(
+        (activity) => {
         const categoryTags =
             activity.activity_categories
-            ?.map((ac: any) => ac.categories?.name)
-            .filter((name: string | null | undefined): name is string => Boolean(name)) ?? [];
+            ?.flatMap((ac) => ac.categories ?? [])
+            .map((cat) => cat.name)
+            .filter((name): name is string => Boolean(name)) ?? [];
 
         const goalTags =
             activity.activity_goals
-            ?.map((ag: any) => ag.goals?.name)
-            .filter((name: string | null | undefined): name is string => Boolean(name)) ?? [];
+            ?.flatMap((ag) => ag.goals ?? [])
+            .map((goal) => goal.name)
+            .filter((name): name is string => Boolean(name)) ?? [];
 
         return {
             id: activity.id,
