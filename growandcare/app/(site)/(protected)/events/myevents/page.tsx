@@ -1,9 +1,12 @@
 import { EventCard } from "@/components/ui/eventcard";
-import { fetchEventsFilter } from "@/lib/event-connector";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { fetchBookedEventsForUser, fetchSavedEventsForUser } from "@/lib/event-connector";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+
 
 // let lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultrices arcu quis purus dignissim, quis tristique enim dapibus. Vestibulum placerat metus purus, sit amet viverra massa tempus ac. Fusce vitae porttitor quam, et aliquet erat. Fusce eget purus pharetra, molestie lorem non, scelerisque nibh. Curabitur dignissim tincidunt metus, sit amet congue felis lobortis ornare. Nam tincidunt metus odio, at maximus ligula tempor id. Quisque porta, lectus a tempus ultrices, nisi augue lobortis nulla, sit amet viverra mi nisl vitae tortor. Aliquam erat volutpat. Praesent placerat ante interdum augue lacinia, viverra lobortis augue varius. Pellentesque sed accumsan sapien, vitae laoreet ex. Mauris posuere, lectus ut consequat commodo, turpis augue vulputate nulla, eget molestie mauris nisi eu justo.\nDuis commodo nunc at lacus laoreet, ac fringilla nisi aliquam. Mauris magna nisi, lacinia eu arcu eget, porttitor gravida urna. Suspendisse velit eros, ultricies mattis interdum at, euismod eget nisi. Cras ultrices lorem nec purus imperdiet porttitor. Proin nec lorem eget tortor feugiat commodo ac ut dolor. Nunc eu egestas eros, quis mollis diam. Fusce in nulla mollis, tincidunt metus a, auctor turpis. Integer porttitor, nibh a molestie finibus, tellus mauris volutpat quam, vitae varius augue velit a est. Aenean et faucibus dui, id facilisis lectus. Curabitur vel velit ac dui vulputate scelerisque non nec erat. Ut quis nunc id arcu suscipit volutpat at a ligula. Quisque nunc libero, pulvinar sit amet massa nec, finibus vestibulum libero. Vivamus commodo est velit, sed volutpat velit iaculis in. Donec ante ex, placerat ac purus vel, efficitur tincidunt risus. Vestibulum egestas dapibus suscipit.\nPhasellus eu orci vel ante volutpat dapibus. Proin dapibus tellus sit amet pellentesque euismod. Nunc nec elit enim. Suspendisse venenatis lacus dui, sit amet hendrerit est volutpat imperdiet. Quisque molestie, eros ac luctus tincidunt, odio tellus fringilla sapien, non tristique massa arcu eu velit. Etiam sit amet eleifend dolor, in consectetur ipsum. Vivamus quis maximus lectus, vestibulum ornare sapien. Duis eget tellus fringilla, aliquet leo a, feugiat ex. Pellentesque condimentum ante in mi finibus, ac maximus ex gravida. Aliquam sodales vel tortor vitae luctus. Aenean fermentum semper mauris, et viverra neque convallis id. Sed eleifend volutpat magna. Sed sagittis ac elit id porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam gravida ligula quis imperdiet rhoncus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
 // lorem += lorem; // make it longer
+
 // const events =[{
 //     title:"Parenting Workshop",
 //     description:"Join us for an interactive workshop on effective parenting techniques and strategies.",
@@ -76,56 +79,51 @@ import { createSupabaseServerClient } from "@/lib/supabase-server";
 // }
 // ];
 
-type EventsPageProps = {
-    searchParams: {
-        goal?: string;
-        category?: string;
-        age_min?: string;
-        age_max?: string;
-        date_from?: string;
-        date_to?: string;
-    };
-};
-export default async function EventsPage({ searchParams }: EventsPageProps) {
-    searchParams = await searchParams;
-    const goalParam = searchParams.goal;
-    const categoryParam = searchParams.category;
-    const ageMinParam = searchParams.age_min;
-    const ageMaxParam = searchParams.age_max;
-    const dateFromParam = searchParams.date_from;
-    const dateToParam = searchParams.date_to;
 
-    const goalId = typeof goalParam === "string" && goalParam !== "all" ? goalParam : undefined;
-    const categoryId = typeof categoryParam === "string" && categoryParam !== "all" ? categoryParam : undefined;
-    const ageMin = typeof ageMinParam === "string" ? parseInt(ageMinParam, 10) : undefined;
-    const ageMax = typeof ageMaxParam === "string" ? parseInt(ageMaxParam, 10) : undefined;
-    const dateFrom = typeof dateFromParam === "string" ? dateFromParam : undefined;
-    const dateTo = typeof dateToParam === "string" ? dateToParam : undefined;
 
+export default async function MyEventsPage() {
     const supabase = await createSupabaseServerClient();
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-    const userId = user ? user.id : undefined;
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.id ?? undefined;
 
-    const events = await fetchEventsFilter(
-        goalId,
-        categoryId,
-        ageMin,
-        ageMax,
-        dateFrom,
-        dateTo,
-        userId
-    );
+    const savedEvents = await fetchSavedEventsForUser(userId!);
+    console.log("Fetched saved events:", savedEvents);
+
+    const bookedEvents = await fetchBookedEventsForUser(userId!);
+    console.log("Fetched booked events:", bookedEvents);
+
     return (
         <main className="mx-auto w-full px-8">
-            <h1 className="text-3xl font-semibold tracking-tight">Events</h1>
-            <div className="mt-2 w-full flex flex-col"> 
-                {events.map((event) => (
-                    <EventCard event={event} key={event.title} />
-                    /*Modify event booking: should specify how many children etc etc*/
-                ))}
-            </div>
+            <h1 className="text-3xl font-semibold tracking-tight">My Saved Events</h1>
+            { (!savedEvents || savedEvents.length === 0) ? (
+                <p className="mt-4 text-lg">You have no saved events yet.</p>
+            ) :
+            <ScrollArea className="mt-4 w-full">
+                <div className="flex flex-row flex-wrap gap-4">
+                    {savedEvents.filter(event => event.saved).map((event) => (
+                        <div key={event.title} className="w-full ">
+                            <EventCard event={event} key={event.title} />
+                        </div>
+                    ))}
+                </div>
+                <ScrollBar orientation="vertical" />
+            </ScrollArea>
+            }
+            <h1 className="text-3xl font-semibold tracking-tight mt-12">My Booked Events</h1>
+            { (!bookedEvents || bookedEvents.length === 0) ? (
+                <p className="mt-4 text-lg">You have no booked events yet.</p>
+            ) :
+            <ScrollArea className="mt-4 w-full">
+                <div className="flex flex-row flex-wrap gap-4">
+                    {bookedEvents.filter(event => event.booked).map((event) => (
+                        <div key={event.title} className="w-full ">
+                            <EventCard event={event} key={event.title} />
+                        </div>
+                    ))}
+                </div>
+                <ScrollBar orientation="vertical" />
+            </ScrollArea>
+        }
         </main>
     );
 }

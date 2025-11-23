@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
 import { TipsSidebar } from "@/components/ui/tipsidebar";
-import { fetchTipCategories } from "@/lib/supabase";
+import { fetchTipCategories } from "@/lib/tips-connector";
 
 export const metadata: Metadata = {
   title: "Grow&Care | Tips",

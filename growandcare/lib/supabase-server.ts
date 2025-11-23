@@ -18,7 +18,7 @@ export async function createSupabaseServerClient(): Promise<SupabaseClient> {
                             cookieStore.set(name,value,options);
                         });
                     } catch (error) {
-                        console.error("Error setting cookies:", error);
+                        console.warn("Failed to set cookies in server-side Supabase client:", error);
                     }
                 }
             }

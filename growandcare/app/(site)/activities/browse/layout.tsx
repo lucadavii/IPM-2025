@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
 import { ActivitiesSidebar } from "@/components/ui/activitiessidebar";
-import { fetchActivityCategories, fetchGoals } from "@/lib/supabase";
+import { fetchActivityCategories, fetchGoals } from "@/lib/activity-connector";
 
 
 export const metadata: Metadata = {
