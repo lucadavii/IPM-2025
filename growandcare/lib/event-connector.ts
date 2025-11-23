@@ -8,7 +8,7 @@ type EventTagJoin = {
     tags?: {
         id: Event['id'];
         name: string;
-    } | null;
+    }[] | null;
 }
 
 type EventGoalJoin = {
@@ -16,7 +16,7 @@ type EventGoalJoin = {
     goals?: {
         id: Event['id'];
         name: string;
-    } | null;
+    }[] | null;
 }
 
 type EventRowWithJoins = Event & {
@@ -141,8 +141,14 @@ export const fetchEventsFilter = async (
     const rows = (data ?? []) as EventRowWithJoins[];
 
     const events: EventWithTagsSavedBooked[] = rows.map((row) => {
-        const tags = row.event_tags?.map((et)=> et.tags?.name).filter((name: string | null | undefined): name is string => Boolean(name)) ?? [];   
-        const goals = row.event_goals?.map((eg)=> eg.goals?.name).filter((name: string | null | undefined): name is string => Boolean(name)) ?? [];
+        const tags = row.event_tags
+            ?.flatMap((et) => et.tags?? [])
+            .map((t) => t.name)
+            .filter((name): name is string => Boolean(name)) ?? [];  
+        const goals = row.event_goals
+        ?.flatMap((eg) => eg.goals?? [])
+        .map((g) => g.name)
+        .filter((name): name is string => Boolean(name)) ?? [];
         const allTags = Array.from(new Set([...tags, ...goals]));
         
         const bookingInfo = userId? bookedIds.get(row.id) : undefined;

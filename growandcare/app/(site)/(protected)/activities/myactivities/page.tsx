@@ -49,8 +49,8 @@ export default async function MyActivitiesPage() {
     const { data: { user } } = await supabase.auth.getUser();
     const userId = user?.id ?? undefined;
     const activities = await fetchSavedActivitiesByUser(userId!);
-    console.log("Fetched saved activities:", activities);
-    console.log("User ID:", userId);
+    // console.log("Fetched saved activities:", activities);
+    // console.log("User ID:", userId);
     if (!activities || activities.length === 0) {
         return (
             <main className="mx-auto w-full px-8">

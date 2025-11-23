@@ -87,10 +87,10 @@ export default async function MyEventsPage() {
     const userId = user?.id ?? undefined;
 
     const savedEvents = await fetchSavedEventsForUser(userId!);
-    console.log("Fetched saved events:", savedEvents);
+    // console.log("Fetched saved events:", savedEvents);
 
     const bookedEvents = await fetchBookedEventsForUser(userId!);
-    console.log("Fetched booked events:", bookedEvents);
+    // console.log("Fetched booked events:", bookedEvents);
 
     return (
         <main className="mx-auto w-full px-8">
