@@ -139,7 +139,7 @@ export default function ColourGamePage() {
         {allRevealed && (
           <button
             type="button"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/play/lander/three-to-five")}
             className="mt-8 rounded-full bg-green-500 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
           >
             Exit

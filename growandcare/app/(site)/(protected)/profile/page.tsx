@@ -1,182 +1,111 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/ui/accordion";
+import { Profile, Child } from "@/types/user"
+import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { UUID } from "crypto";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import { fetchUserProfile, fetchUserChildrenWithCategoriesAndGoals } from "@/lib/profile-connector";
 
-// ----- Types -----
-
-// Enumerated types for interests
-export type ChildInterest =
-  | "MUSIC"
-  | "SPORTS"
-  | "ART"
-  | "ANIMALS"
-  | "OUTDOORS"
-  | "GAMES"
-  | "BOOKS"
-  | "SCIENCE";
-
-export interface Child {
-  id: string;
-  name: string;
-  age: number;
-  interests: ChildInterest[];
-}
-
-export interface UserProfile {
-  name: string;
-  email: string;
-  avatarUrl?: string | null;
-}
-
-// Label mapping for interests
-const CHILD_INTEREST_LABELS: Record<ChildInterest, string> = {
-  MUSIC: "Music",
-  SPORTS: "Sports",
-  ART: "Art & Crafts",
-  ANIMALS: "Animals",
-  OUTDOORS: "Outdoors",
-  GAMES: "Games",
-  BOOKS: "Books & Reading",
-  SCIENCE: "Science & Experiments",
+const fakeProfile: Profile = {
+    id: "123e4567-e89b-12d3-a456-426614174000" as UUID,
+    name: "John",
+    surname: "Doe",
+    img_url: "/developer.png",
 };
 
-// ----- Mock data (replace with your Supabase data) -----
-
-const mockUser: UserProfile = {
-  name: "Jane Doe",
-  email: "jane.doe@example.com",
-  avatarUrl: "https://api.dicebear.com/9.x/initials/svg?seed=Jane",
-};
-
-const mockChildren: Child[] = [
-  {
-    id: "1",
-    name: "Alice",
-    age: 7,
-    interests: ["ART", "BOOKS", "ANIMALS"],
-  },
-  {
-    id: "2",
-    name: "Luca",
-    age: 5,
-    interests: ["GAMES", "OUTDOORS", "SCIENCE"],
-  },
+const fakeChildren = [
+    {
+        id: "223e4567-e89b-12d3-a456-426614174001" as UUID,
+        parent_id: fakeProfile.id,
+        name: "Alice",
+        birthday: "2018-05-20",
+        goals: ["cacca", "pupu"],
+        categories : ["coca" as UUID, "ina" as UUID],
+    }, 
+    {
+        id: "323e4567-e89b-12d3-a456-426614174002" as UUID,
+        parent_id: fakeProfile.id,
+        name: "Bob",
+        birthday: "2016-11-15",
+        goals: ["coca", "fentanyl"],
+        categories : ["caca" as UUID, "pupu" as UUID],
+    }
 ];
 
-// ----- Components -----
+export default async function ProfilePage() {
+  const supabase = await createSupabaseServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const userId = user?.id ?? undefined;
+  const profile = await fetchUserProfile();
+  const children = await fetchUserChildrenWithCategoriesAndGoals();
 
-function InterestsList({ interests }: { interests: ChildInterest[] }) {
-  if (!interests.length) {
-    return <p className="text-sm text-muted-foreground">No interests set yet.</p>;
-  }
-
-  return (
-    <div className="flex flex-wrap gap-2">
-      {interests.map((i) => (
-        <Badge key={i} variant="secondary" className="text-xs">
-          {CHILD_INTEREST_LABELS[i]}
-        </Badge>
-      ))}
-    </div>
-  );
-}
-
-function ChildrenAccordion({ childrenList }: { childrenList: Child[] }) {
-  if (!childrenList.length) {
+  if (!profile) {
     return (
-      <p className="text-sm text-muted-foreground">
-        No children added yet.
-      </p>
+      <main>
+        <div className="w-full mt-8">
+          <p className="text-center text-lg">No profile data available.</p>
+        </div>
+      </main>
     );
   }
 
   return (
-    <Accordion type="single" collapsible className="w-full">
-      {childrenList.map((child) => (
-        <AccordionItem key={child.id} value={child.id}>
-          <AccordionTrigger className="text-left">
-            <div className="flex flex-col items-start">
-              <span className="font-medium">{child.name}</span>
-              <span className="text-xs text-muted-foreground">
-                {child.age} years old
-              </span>
+      <main>
+        <div className="w-full  mt-8">
+          <div className="mx-auto w-full px-8 flex items-center justify-center mt-12 border-2 p-6 rounded-lg border-gray-400">
+              <div className="w-1/3 pr-4">
+                    <Image
+                        src={profile.img_url ?? "/developer.png"}
+                        alt="Profile Picture"
+                        width={150}
+                        height={150}
+                        className="rounded-full"
+                    />
+                </div>
+                <div className="w-2/3">
+                    <h1 className="text-3xl font-semibold tracking-tight">
+                        {profile.name} {profile.surname}
+                    </h1>
+                </div>
+                
             </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-2 pt-2">
-              <div>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                  Interests
-                </p>
-                <InterestsList interests={child.interests} />
-              </div>
-              {/* If you later add more fields (notes, goals, etc.), place them here */}
+            <div className="w-full  mt-8"/>
+            <div className="mx-auto  px-8  mt-12 ">
+              <h2 className="text-2xl font-semibold tracking-tight mb-4 text-center min-w-2/3">My Children</h2>
+              
+              {children.length > 0 ? children.map((child) => (
+                <div key={child.id} className="mb-6 p-4 border border-gray-300 rounded-lg">
+                  <h3 className="text-xl font-semibold">{child.name}</h3>
+                  <p>Birthday: {child.birthday} ({ (new Date()).getFullYear() - (new Date(child.birthday)).getFullYear() } y.o.)</p>
+                  <div className="mt-2">
+                    <h4 className="font-semibold">Goals:</h4>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {child.goals ? child.goals.map((goal, index) => (
+                        <Badge key={index} className="bg-blue-100 text-blue-800">
+                          {goal.name}
+                        </Badge>
+                      )) : 
+                      <div className="text-gray-500">No goals available.</div>
+                      }
+                    </div>
+                  </div>
+                  <div className="mt-2">
+                    <h4 className="font-semibold">Interests:</h4>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      { child.categories ? child.categories.map((category, index) => (
+                        <Badge key={index} className="bg-green-100 text-green-800">
+                          {category.name}
+                        </Badge>
+                      )) : 
+                      <div className="text-gray-500">No Interests available.</div>
+                      }
+                    </div>
+                  </div>
+                </div>
+              )):
+              <p className="text-center text-lg">No children data available.</p>
+              }
             </div>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
-  );
-}
-
-export default function ProfilePage() {
-  const user = mockUser;
-  const children = mockChildren;
-
-  return (
-    <main className="min-h-screen bg-background">
-      <div className="max-w-3xl mx-auto py-10 px-4 space-y-6">
-        {/* Profile card */}
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-4">
-            <Avatar className="h-14 w-14">
-              {user.avatarUrl ? (
-                <AvatarImage src={user.avatarUrl} alt={user.name} />
-              ) : (
-                <AvatarFallback>
-                  {user.name
-                    .split(" ")
-                    .map((p) => p[0])
-                    .join("")
-                    .slice(0, 2)
-                    .toUpperCase()}
-                </AvatarFallback>
-              )}
-            </Avatar>
-            <div>
-              <CardTitle className="text-xl">{user.name}</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground">
-                {user.email}
-              </CardDescription>
-            </div>
-          </CardHeader>
-        </Card>
-
-        {/* Children section */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Children</CardTitle>
-            <CardDescription>
-              Expand each child to see their details and interests.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChildrenAccordion childrenList={children} />
-          </CardContent>
-        </Card>
-      </div>
-    </main>
-  );
+          </div>
+        </main>
+    );
 }

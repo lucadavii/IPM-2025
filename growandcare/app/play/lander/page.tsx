@@ -14,19 +14,19 @@ export default function PlayPage() {
                 Please choose the age range.
             </h2>
             <div className=" w-11/12 h-11/12 mt-10 flex items-center justify-center border border-blue-500 rounded-md p-6">
-                <Link href="/play/three-to-five" className="w-1/3 h-40 m-2">
+                <Link href="/play/lander/three-to-five" className="w-1/3 h-40 m-2">
                     <Button variant="outline" className="w-full h-full m-2 flex flex-col">
                         <Label className="text-2xl"> Age 3-5 </Label>
                         <Image src="/developer.png" alt="Kids Playing" width={100} height={100} className="mt-2"/>
                     </Button>
                 </Link>
-                <Link href="/play/" className="w-1/3 h-40 m-2">
+                <Link href="/play/lander/six-to-eight" className="w-1/3 h-40 m-2">
                     <Button variant="outline" className="w-full h-full m-2 flex flex-col">
                         <Label className="text-2xl"> Age 6-8 </Label>
                         <Image src="/developer.png" alt="Kids Playing" width={100} height={100} className="mt-2"/>
                     </Button>
                 </Link>
-                    <Link href="/play/" className="w-1/3 h-40 m-2">
+                    <Link href="/play/lander/nine-to-twelve" className="w-1/3 h-40 m-2">
                     <Button variant="outline" className="w-full h-full m-2 flex flex-col">
                         <Label className="text-2xl"> Age 9-12 </Label>
                         <Image src="/developer.png" alt="Kids Playing" width={100} height={100} className="mt-2"/>

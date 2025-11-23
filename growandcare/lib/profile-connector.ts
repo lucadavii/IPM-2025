@@ -13,6 +13,14 @@ type ChildWithCategoriesAndGoals = Child & {
     }[] | null;
 };
 
+type ChildWithCategoryJoin={
+    categories: {id: string; name: string}[] | null;
+}
+
+type ChildWithGoalJoin={
+    goals: {id: string; name: string}[] | null;
+}
+
 export const fetchUserProfile = async (): Promise<Profile | null> => {
     const supabase: SupabaseClient = await createSupabaseServerClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -22,7 +30,7 @@ export const fetchUserProfile = async (): Promise<Profile | null> => {
     }
 
     const { data, error } = await supabase
-        .from('profiles')
+        .from('profile')
         .select('*')
         .eq('id', user.id)
         .single();
@@ -43,7 +51,7 @@ export const fetchUserChildren = async (): Promise<Child[]> => {
     }
 
     const { data, error } = await supabase
-        .from('children')
+        .from('child')
         .select('*')
         .eq('parent_id', user.id)
         .order('name', { ascending: true });
@@ -65,16 +73,22 @@ export const fetchUserChildrenWithCategoriesAndGoals = async (): Promise<ChildWi
     }
 
     const { data, error } = await supabase
-        .from('children')
+        .from('child')
         .select(`
             *,
             child_categories (
-                id,
-                name
+                ch_id,
+                categories (
+                    id,
+                    name
+                )
             ),
             child_goals (
-                id,
-                name
+                ch_id,
+                goals (
+                    id,
+                    name
+                )
             )
         `)
         .eq('parent_id', user.id)
@@ -84,8 +98,16 @@ export const fetchUserChildrenWithCategoriesAndGoals = async (): Promise<ChildWi
         console.error('Error fetching user children with categories and goals:', error);
         return [];
     }
-
-    return data as ChildWithCategoriesAndGoals[];
+    const mappedData: ChildWithCategoriesAndGoals[] = (data ?? []).map((row) => ({
+        id: row.id,
+        parent_id: row.parent_id,
+        name: row.name,
+        birthday: row.birthday,
+        categories: row.child_categories?.map((cc:ChildWithCategoryJoin) => cc.categories)?.filter(Boolean) ?? [],
+        goals: row.child_goals?.map((cg:ChildWithGoalJoin) => cg.goals)?.filter(Boolean) ?? [],
+    }));
+    return mappedData;
 }
+
 
 
