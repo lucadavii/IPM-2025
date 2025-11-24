@@ -5,12 +5,12 @@
 import { Card, CardAction, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
-import {Activity, ActivityWithTagsAndSaved } from "@/types/activities";
+import { ActivityWithTagsAndSaved } from "@/types/activities";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";

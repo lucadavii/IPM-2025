@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import {Shapes} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

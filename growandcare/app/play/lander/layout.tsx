@@ -1,13 +1,9 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { use, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { usePlayMode } from "@/components/play-mode-provider";
 
 import "@/app/globals.css";
 import Link from "next/link";
-import {DoorOpenIcon} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ExitPlayModeButton } from "@/components/ui/exitplaymodebutton";
 
@@ -18,7 +14,6 @@ export default function SiteLayout({
   children: React.ReactNode;
 }>) {
   const {isLocked} = usePlayMode();
-  const router = useRouter();
 
   if( !isLocked ) {
     return (

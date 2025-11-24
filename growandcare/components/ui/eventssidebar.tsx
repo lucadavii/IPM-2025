@@ -9,8 +9,7 @@ import {
     SidebarGroupLabel,
     SidebarHeader, 
     SidebarMenu,
-    SidebarMenuItem,
-    SidebarMenuButton,
+    SidebarMenuItem
 } from "@/components/ui/sidebar";
 import { Label } from "@/components/ui/label";
 import {Calendar} from "@/components/ui/calendar";

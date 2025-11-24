@@ -1,6 +1,4 @@
-import { Profile, Child } from "@/types/user"
 import { createSupabaseServerClient } from "@/lib/supabase-server";
-import { UUID } from "crypto";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { fetchUserProfile, fetchUserChildrenWithCategoriesAndGoals } from "@/lib/profile-connector";

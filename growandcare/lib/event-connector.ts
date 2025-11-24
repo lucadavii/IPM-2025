@@ -1,7 +1,6 @@
 import { createSupabaseServerClient } from "./supabase-server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { Event, EventWithTagsSavedBooked, EventTag } from "@/types/events";
-import { Goal } from "@/types/activities";
 
 type EventTagJoin = {
     t_id: Event['id'];
@@ -24,9 +23,6 @@ type EventRowWithJoins = Event & {
     event_goals?: EventGoalJoin[] | null;
 };
 
-type SavedEventRow = {
-    e_id: Event['id'];
-};
 
 type BookedEventRow = {
     e_id: Event['id'];

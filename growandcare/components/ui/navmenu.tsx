@@ -8,7 +8,6 @@ import {
     NavigationMenuLink,
     NavigationMenuContent,
     NavigationMenuTrigger,
-    NavigationMenuViewport
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
 import { HeartIcon, CircleUserRoundIcon } from "lucide-react";

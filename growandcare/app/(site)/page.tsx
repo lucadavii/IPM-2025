@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
 import Image from "next/image";
 
 export default async function Home() {
@@ -19,7 +17,10 @@ export default async function Home() {
       />
       <h1 className="scroll-m-20 text-center text-3xl lg:text-5xl font-extrabold tracking-tight text-balance">Welcome to Grow&amp;Care</h1>
       <p className="mt-6 text-center text-lg max-w-2xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sequi maiores necessitatibus officia, ut iure culpa, eveniet eos corporis exercitationem optio voluptate assumenda suscipit rem quod facilis consectetur, impedit quasi.
+        Welcome to grow and care - a warm and friendly space for families. Discover fun helpful, educational content created for children and parents
+      </p>
+      <p className="mt-4 text-center text-lg max-w-2xl text-muted-foreground">  
+        Enjoy Play Mode for secure, playful learning.
       </p>
     </div>
 

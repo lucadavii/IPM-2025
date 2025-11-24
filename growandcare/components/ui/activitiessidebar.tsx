@@ -10,7 +10,6 @@ import {
     SidebarHeader, 
     SidebarMenu,
     SidebarMenuItem,
-    SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { Label } from "@/components/ui/label";
 import {Slider} from "@/components/ui/slider";
