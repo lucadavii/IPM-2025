@@ -17,28 +17,28 @@ type ColourItem = {
 const COLOURS: ColourItem[] = [
   {
     id: 1,
-    imageSrc: "/game/red-ball.png",
+    imageSrc: "/game/red-ball.jpg",
     alt: "Red ball",
     adjective_us: "red",
     adjective_pt: "vermelho",
   },
   {
     id: 2,
-    imageSrc: "/game/blue-car.png",
+    imageSrc: "/game/blue-car.jpg",
     alt: "Blue car",
     adjective_us: "blue",
     adjective_pt: "azul",
   },
   {
     id: 3,
-    imageSrc: "/game/yellow-star.png",
+    imageSrc: "/game/yellow-star.jpg",
     alt: "Yellow star",
     adjective_us: "yellow",
     adjective_pt: "amarelo",
   },
   {
     id: 4,
-    imageSrc: "/game/green-leaf.png",
+    imageSrc: "/game/green-leaf.jpg",
     alt: "Green leaf",
     adjective_us: "green",
     adjective_pt: "verde",
@@ -74,17 +74,9 @@ export default function ColourGamePage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Top bar: title and exit (disabled until finished if you want) */}
       <header className="border-b bg-white/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-3xl items-center justify-center px-4 py-3 relative">
           <h1 className="text-lg font-semibold">Colour Game</h1>
-          {/* Optional top-right exit, always visible or conditionally */}
-          {/* <button
-            onClick={() => router.push("/")}
-            className="absolute right-4 rounded-full bg-slate-200 px-3 py-1 text-sm hover:bg-slate-300"
-          >
-            Exit
-          </button> */}
         </div>
       </header>
 

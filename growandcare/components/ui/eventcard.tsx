@@ -24,15 +24,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { EventWithTagsSavedBooked } from "@/types/events";
-    // title:"Parenting Workshop",
-    // description:"Join us for an interactive workshop on effective parenting techniques and strategies.",
-    // text:lorem,
-    // img:"/developer.png",
-    // link:"#",
-    // tags:["parenting","workshop","family","kids","education","health" ,"wellness","support","community","skills","development", "tips","advice","resources","activities","events","seminar","training","outdoor","fun","long description","test"],
-    // booked: true,
-    // saved: true
-
 
 export function EventCard({ event }: { event: EventWithTagsSavedBooked }) {
     const router = useRouter();
@@ -179,7 +170,7 @@ export function EventCard({ event }: { event: EventWithTagsSavedBooked }) {
                                     <DialogContent className=" min-w-5/6 h-[80vh] flex flex-col">
                                         <div className="flex flex-row items-start gap-4 flex-1 min-h-0">
                                             <div className="flex flex-col items-start max-w-[250px]">
-                                                <Image src={event.img_url} alt={event.title} width={200} height={200} className=" mb-4 mt-0 ml-6 m-3 rounded-md object-scale-down border-2 border-accent-foreground"/>
+                                                <Image src={event.img_url} alt={event.title} width={200} height={200} className=" mb-4 mt-0 ml-6 m-3 rounded-md object-scale-down border-2"/>
                                                 <div className="ml-6 mb-2">
                                                     <Label className="font-semibold">Event Date: <Badge variant={'secondary'}>{event.date}</Badge></Label>
                                                     <Label className="font-semibold">Age Range: <Badge variant={'secondary'}>{event.age_min} - {event.age_max}</Badge></Label>

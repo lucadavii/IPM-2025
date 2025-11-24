@@ -5,31 +5,6 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { fetchUserProfile, fetchUserChildrenWithCategoriesAndGoals } from "@/lib/profile-connector";
 
-const fakeProfile: Profile = {
-    id: "123e4567-e89b-12d3-a456-426614174000" as UUID,
-    name: "John",
-    surname: "Doe",
-    img_url: "/developer.png",
-};
-
-const fakeChildren = [
-    {
-        id: "223e4567-e89b-12d3-a456-426614174001" as UUID,
-        parent_id: fakeProfile.id,
-        name: "Alice",
-        birthday: "2018-05-20",
-        goals: ["cacca", "pupu"],
-        categories : ["coca" as UUID, "ina" as UUID],
-    }, 
-    {
-        id: "323e4567-e89b-12d3-a456-426614174002" as UUID,
-        parent_id: fakeProfile.id,
-        name: "Bob",
-        birthday: "2016-11-15",
-        goals: ["coca", "fentanyl"],
-        categories : ["caca" as UUID, "pupu" as UUID],
-    }
-];
 
 export default async function ProfilePage() {
   const supabase = await createSupabaseServerClient();
@@ -51,7 +26,7 @@ export default async function ProfilePage() {
   return (
       <main>
         <div className="w-full  mt-8">
-          <div className="mx-auto w-full px-8 flex items-center justify-center mt-12 border-2 p-6 rounded-lg border-gray-400">
+          <div className="mx-auto w-2/3 px-8 flex items-center justify-between mt-12 border-2 p-6 rounded-lg border-gray-400 bg-amber-100">
               <div className="w-1/3 pr-4">
                     <Image
                         src={profile.img_url ?? "/developer.png"}
@@ -61,8 +36,8 @@ export default async function ProfilePage() {
                         className="rounded-full"
                     />
                 </div>
-                <div className="w-2/3">
-                    <h1 className="text-3xl font-semibold tracking-tight">
+                <div className="w-2/3 justify-between flex flex-col items-end">
+                    <h1 className="text-3xl font-semibold text-right">
                         {profile.name} {profile.surname}
                     </h1>
                 </div>

@@ -24,7 +24,7 @@ export default function AboutPage() {
       <h1 className="text-3xl font-semibold tracking-tight">Group 11</h1>
       <p className="mt-2 text-muted-foreground">Meet the team.</p>
 
-      <ul className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+      <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
         {members.map((m) => (
           <li key={m.name} className="rounded-xl border bg-card p-4">
             <div className="flex items-center gap-4">

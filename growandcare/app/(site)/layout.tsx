@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@/app/globals.css";
 import { NavMenu } from "@/components/ui/navmenu";
 
 export const metadata: Metadata = {

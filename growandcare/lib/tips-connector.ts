@@ -17,6 +17,7 @@ export const fetchTipCategories = async (): Promise<TipCategory[]> => {
     const { data, error } = await supabase
         .from('tip_categories')
         .select('*')
+        .order('name', { ascending: true })
 
     if (error) {
         console.error('Error fetching tip categories:', error)
