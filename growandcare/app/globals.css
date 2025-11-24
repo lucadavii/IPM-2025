@@ -130,7 +130,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-body{
-  background: #111 !important;
-}
