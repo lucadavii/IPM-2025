@@ -13,7 +13,7 @@ export default function ThreeToFivePage() {
                 Age 9-12 Activities
             </h2>
             <div className=" w-11/12 h-11/12 mt-10 flex items-center justify-center border border-blue-500 rounded-md p-6">
-                <Link href="#" className="w-1/3 h-40 m-2">
+                <Link href="/play/lander/nine-to-twelve/hypercomplex" className="w-1/3 h-40 m-2">
                     <Button variant="outline" className="w-full h-full m-2 flex flex-col rounded-full border-blue-400 bg-blue-100 hover:bg-blue-200">
                         <Label className="text-2xl"> Hypercomplex Analysis </Label>
                         <Image src="/hypercomplex.png" alt="Kids Playing" width={100} height={100} className="mt-2"/>
