@@ -26,7 +26,7 @@ export default async function ProfilePage() {
   return (
       <main>
         <div className="w-full  mt-8">
-          <div className="mx-auto w-2/3 px-8 flex items-center justify-between mt-12 border-2 p-6 rounded-lg border-gray-400 bg-amber-100">
+          <div className="mx-auto w-2/3 px-8 flex items-center justify-between mt-12 border-2 p-6 rounded-lg border-gray-400">
               <div className="w-1/3 pr-4">
                     <Image
                         src={profile.img_url ?? "/developer.png"}
