@@ -87,6 +87,58 @@ export default function AboutPage() {
             </div>
           </AccordionContent>
         </AccordionItem>
+        <AccordionItem value="stage-4">
+          <AccordionTrigger>4th Stage Report</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/G_11_stage4.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="stage-5A">
+          <AccordionTrigger>5th Stage Report (Group 11)</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/G_11_stage5.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="stage-5B">
+          <AccordionTrigger>5th Stage Report (Group 9)</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/G_9_stage5.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="stage-6">
+          <AccordionTrigger>6th Stage Report</AccordionTrigger>
+          <AccordionContent>
+            <div className="h-screen w-full flex justify-center items-center">
+              <iframe
+                src="/G_11_stage6.pdf"
+                width="80%"
+                height="90%"
+                style={{ border: "none" }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
       </Accordion>
       <br />
       <h2 className="mt-12 text-2xl font-semibold tracking-tight">Individual Assignments</h2>
